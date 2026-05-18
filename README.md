@@ -4,11 +4,11 @@ Jeb is a minimalist, agentic web dashboard designed to automate the job search a
 
 ## 🚀 Features
 
-- **Automated Scraping:** Stealthy job board scraping using Playwright.
-- **AI Analysis:** Skill extraction and match scoring using Gemini 1.5 Pro.
-- **Tailored Resumes:** AI-driven CV rewriting to emphasize matching skills.
-- **ATS-Friendly PDF:** High-fidelity PDF generation via WeasyPrint using parsable HTML templates.
-- **Modern Dashboard:** Minimalist dark-mode UI built with Next.js and Shadcn/UI.
+- **Automated Scraping:** Stealthy job board scraping using Playwright (Targeting TopJobs.lk and others).
+- **AI Analysis:** Skill extraction and match scoring using Gemini 3.1 Pro.
+- **Tailored Resumes:** AI-driven CV rewriting to emphasize matching skills while maintaining 100% factual accuracy.
+- **ATS-Friendly PDF:** High-fidelity PDF generation via WeasyPrint and text extraction via PyMuPDF.
+- **Modern Dashboard:** Minimalist dark-mode UI built with Next.js and Shadcn/UI (Coming in Phase 4).
 
 ## 🛠️ Tech Stack
 
@@ -62,6 +62,20 @@ Jeb is a minimalist, agentic web dashboard designed to automate the job search a
 - `make down`: Stops and removes all containers.
 - `make migrate`: Generates and applies database migrations.
 - `make logs`: Tails logs for all services.
+
+## 🔌 API Endpoints (Current Progress)
+
+### Hunts & Listings
+- `POST /hunts`: Create a new job search and trigger background scraping.
+- `GET /hunts`: List all previous searches.
+- `GET /listings`: View found job listings (supports `?hunt_id=` filter).
+
+### CV Management
+- `POST /cvs`: Upload a Master CV (supports text Form field or PDF File upload).
+- `GET /cvs`: List all uploaded CVs.
+
+### AI Engine
+- `POST /tailor/{listing_id}`: Trigger the AI to rewrite your CV for a specific job.
 
 ## ⚖️ License
 

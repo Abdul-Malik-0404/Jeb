@@ -3,6 +3,7 @@
 setup:
 	sudo docker compose build
 	sudo docker compose run --rm api playwright install chromium
+	# Frontend node_modules will be installed during container build
 
 up:
 	sudo docker compose up -d
