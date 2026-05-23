@@ -50,6 +50,22 @@ def list_listings(hunt_id: str = None, db: Session = Depends(get_db)):
         query = query.filter(models.Listing.hunt_id == hunt_id)
     return query.all()
 
+@app.get("/stats")
+def get_stats(db: Session = Depends(get_db)):
+    hunts_count = db.query(models.Hunt).count()
+    listings_count = db.query(models.Listing).count()
+    cvs_count = db.query(models.CV).count()
+    
+    # Calculate average match score for listings that have one
+    avg_score = db.query(func.avg(models.Listing.match_score)).filter(models.Listing.match_score != None).scalar() or 0
+    
+    return {
+        "hunts": hunts_count,
+        "listings": listings_count,
+        "cvs": cvs_count,
+        "avg_match_score": round(float(avg_score), 1)
+    }
+
 # --- CV Management ---
 
 @app.post("/cvs", response_model=schemas.CVResponse)
