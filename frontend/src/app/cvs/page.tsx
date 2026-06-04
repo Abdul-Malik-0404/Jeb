@@ -69,36 +69,36 @@ export default function CVsPage() {
   return (
     <div className="max-w-4xl space-y-8">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Curriculum Vitae</h1>
-        <p className="text-zinc-500 dark:text-zinc-400">Manage your Master CV and tailored versions.</p>
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">Curriculum Vitae</h1>
+        <p className="text-muted-foreground mt-1">Manage your Master CV and tailored versions.</p>
       </div>
 
       <div className="grid gap-8 md:grid-cols-2">
         {/* Upload Form */}
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold">Upload New CV</h2>
-          <form onSubmit={uploadCV} className="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900/50 space-y-4">
+          <h2 className="text-lg font-semibold text-foreground">Upload New CV</h2>
+          <form onSubmit={uploadCV} className="rounded-lg border border-border bg-card p-6 space-y-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Title</label>
+              <label className="text-sm font-medium text-foreground">Title</label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. Master Software Engineer CV"
-                className="w-full rounded-lg border border-zinc-200 bg-transparent px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black dark:border-zinc-800 dark:focus:ring-white"
+                className="w-full rounded-lg border border-input bg-input-background px-4 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 required
               />
             </div>
             
             <div className="space-y-2">
-              <label className="text-sm font-medium">Content Source</label>
+              <label className="text-sm font-medium text-foreground">Content Source</label>
               <div className="flex gap-4">
                 <button
                   type="button"
                   onClick={() => setFile(null)}
                   className={cn(
                     "flex-1 rounded-lg border py-2 text-xs font-medium transition-colors",
-                    !file ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black" : "border-zinc-200 dark:border-zinc-800"
+                    !file ? "border-primary bg-primary text-primary-foreground" : "border-border text-foreground hover:bg-secondary"
                   )}
                 >
                   Paste Text
@@ -114,7 +114,7 @@ export default function CVsPage() {
                     type="button"
                     className={cn(
                       "w-full rounded-lg border py-2 text-xs font-medium transition-colors pointer-events-none",
-                      file ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black" : "border-zinc-200 dark:border-zinc-800"
+                      file ? "border-primary bg-primary text-primary-foreground" : "border-border text-foreground hover:bg-secondary"
                     )}
                   >
                     {file ? file.name : "Upload PDF"}
@@ -125,12 +125,12 @@ export default function CVsPage() {
 
             {!file && (
               <div className="space-y-2">
-                <label className="text-sm font-medium">Paste CV Text</label>
+                <label className="text-sm font-medium text-foreground">Paste CV Text</label>
                 <textarea
                   value={contentText}
                   onChange={(e) => setContentText(e.target.value)}
                   rows={6}
-                  className="w-full rounded-lg border border-zinc-200 bg-transparent px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black dark:border-zinc-800 dark:focus:ring-white"
+                  className="w-full rounded-lg border border-input bg-input-background px-4 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   placeholder="Paste your CV content here..."
                 />
               </div>
@@ -142,15 +142,15 @@ export default function CVsPage() {
                 id="isMaster"
                 checked={isMaster}
                 onChange={(e) => setIsMaster(e.target.checked)}
-                className="h-4 w-4 rounded border-zinc-300 text-black focus:ring-black dark:border-zinc-800 dark:focus:ring-white"
+                className="h-4 w-4 rounded border-input text-primary focus:ring-ring"
               />
-              <label htmlFor="isMaster" className="text-sm font-medium">Set as Master CV</label>
+              <label htmlFor="isMaster" className="text-sm font-medium text-foreground">Set as Master CV</label>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-black px-6 text-sm font-medium text-white transition-colors hover:bg-zinc-800 disabled:opacity-50 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+              className="w-full inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
               Upload CV
@@ -160,29 +160,29 @@ export default function CVsPage() {
 
         {/* CV List */}
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold">Your CVs</h2>
+          <h2 className="text-lg font-semibold text-foreground">Your CVs</h2>
           {fetching ? (
             <div className="flex justify-center py-8">
-              <Loader2 className="h-8 w-8 animate-spin text-zinc-400" />
+              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
             </div>
           ) : cvs.length === 0 ? (
-            <p className="text-zinc-500 text-center py-8">No CVs found.</p>
+            <p className="text-muted-foreground text-center py-8">No CVs found.</p>
           ) : (
             <div className="space-y-3">
               {cvs.map((cv) => (
                 <div
                   key={cv.id}
-                  className="flex items-center justify-between rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900/50"
+                  className="flex items-center justify-between rounded-lg border border-border bg-card p-4 transition-all hover:border-primary/50"
                 >
                   <div className="flex items-center gap-3">
-                    <FileText className={cn("h-5 w-5", cv.is_master ? "text-blue-500" : "text-zinc-400")} />
+                    <FileText className={cn("h-5 w-5", cv.is_master ? "text-primary" : "text-muted-foreground")} />
                     <div>
-                      <p className="text-sm font-medium">{cv.title}</p>
-                      <p className="text-xs text-zinc-500">{new Date(cv.created_at).toLocaleDateString()}</p>
+                      <p className="text-sm font-medium text-foreground">{cv.title}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{new Date(cv.created_at).toLocaleDateString()}</p>
                     </div>
                   </div>
                   {cv.is_master && (
-                    <span className="text-[10px] font-bold uppercase tracking-widest bg-blue-100 text-blue-700 px-2 py-0.5 rounded dark:bg-blue-900/30 dark:text-blue-400">
+                    <span className="text-[10px] font-bold uppercase tracking-widest bg-secondary text-secondary-foreground px-2 py-1 rounded">
                       Master
                     </span>
                   )}

@@ -60,7 +60,7 @@ export default function Home() {
   if (loading) {
     return (
       <div className="flex h-full items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-zinc-500" />
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
       </div>
     );
   }
@@ -75,23 +75,23 @@ export default function Home() {
   return (
     <div className="space-y-8 pb-12">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Dashboard Overview</h1>
-        <p className="text-zinc-500 dark:text-zinc-400">Real-time status of your autonomous job search.</p>
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">Dashboard Overview</h1>
+        <p className="text-muted-foreground mt-1">Real-time status of your autonomous job search.</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {statCards.map((stat) => (
           <div
             key={stat.name}
-            className="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900/50"
+            className="rounded-lg border border-border bg-card p-6"
           >
             <div className="flex items-center gap-4">
-              <div className="rounded-lg bg-zinc-100 p-2 dark:bg-zinc-800">
-                <stat.icon className="h-5 w-5 text-black dark:text-white" />
+              <div className="rounded-lg bg-secondary p-2">
+                <stat.icon className="h-5 w-5 text-secondary-foreground" />
               </div>
               <div>
-                <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">{stat.name}</p>
-                <p className="text-2xl font-bold">{stat.value}</p>
+                <p className="text-sm font-medium text-muted-foreground">{stat.name}</p>
+                <p className="text-2xl font-bold text-foreground">{stat.value}</p>
               </div>
             </div>
           </div>
@@ -99,22 +99,22 @@ export default function Home() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <div className="col-span-4 rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900/50">
+        <div className="col-span-4 rounded-lg border border-border bg-card p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold">Recent Hunts</h2>
-            <Link href="/hunts" className="text-sm text-zinc-500 hover:text-black dark:hover:text-white underline underline-offset-4">View All</Link>
+            <h2 className="text-lg font-semibold text-foreground">Recent Hunts</h2>
+            <Link href="/hunts" className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors">View All</Link>
           </div>
           <div className="space-y-4">
             {recentHunts.length === 0 ? (
-              <p className="text-sm text-zinc-500 py-4">No hunts recorded yet.</p>
+              <p className="text-sm text-muted-foreground py-4">No hunts recorded yet.</p>
             ) : (
               recentHunts.map((hunt) => (
-                <div key={hunt.id} className="flex items-center justify-between border-b border-zinc-100 pb-4 last:border-0 last:pb-0 dark:border-zinc-800">
+                <div key={hunt.id} className="flex items-center justify-between border-b border-border pb-4 last:border-0 last:pb-0">
                   <div>
-                    <p className="font-medium">{hunt.category}</p>
-                    <p className="text-sm text-zinc-500">{hunt.region} • {new Date(hunt.created_at).toLocaleDateString()}</p>
+                    <p className="font-medium text-foreground">{hunt.category}</p>
+                    <p className="text-sm text-muted-foreground">{hunt.region} • {new Date(hunt.created_at).toLocaleDateString()}</p>
                   </div>
-                  <Link href="/listings" className="text-sm font-medium text-black dark:text-white">
+                  <Link href="/listings" className="text-sm font-medium text-primary hover:underline underline-offset-4 transition-colors">
                     Details
                   </Link>
                 </div>
@@ -123,26 +123,26 @@ export default function Home() {
           </div>
         </div>
         
-        <div className="col-span-3 rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900/50">
-          <h2 className="text-lg font-semibold">Master CV Status</h2>
+        <div className="col-span-3 rounded-lg border border-border bg-card p-6">
+          <h2 className="text-lg font-semibold text-foreground">Master CV Status</h2>
           <div className="mt-4">
             {masterCv ? (
-              <div className="rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+              <div className="rounded-lg border border-border p-4 bg-background">
                 <div className="flex items-center gap-3">
-                  <FileText className="h-8 w-8 text-blue-500" />
+                  <FileText className="h-8 w-8 text-primary" />
                   <div>
-                    <p className="font-medium truncate max-w-[180px]">{masterCv.title}</p>
-                    <p className="text-xs text-zinc-500 uppercase tracking-widest">Master Version</p>
+                    <p className="font-medium truncate max-w-[180px] text-foreground">{masterCv.title}</p>
+                    <p className="text-xs text-muted-foreground uppercase tracking-widest">Master Version</p>
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="rounded-lg border border-dashed border-zinc-200 p-8 text-center dark:border-zinc-800">
-                <p className="text-sm text-zinc-500">No Master CV set.</p>
+              <div className="rounded-lg border border-dashed border-border p-8 text-center bg-background">
+                <p className="text-sm text-muted-foreground">No Master CV set.</p>
               </div>
             )}
             <Link href="/cvs" className="block mt-4">
-              <button className="w-full rounded-lg bg-black px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200">
+              <button className="w-full rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">
                 {masterCv ? "Update Master CV" : "Upload CV"}
               </button>
             </Link>

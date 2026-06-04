@@ -58,37 +58,37 @@ export default function HuntsPage() {
   return (
     <div className="max-w-4xl space-y-8">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Job Hunts</h1>
-        <p className="text-zinc-500 dark:text-zinc-400">Start a new scout or track your existing searches.</p>
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">Job Hunts</h1>
+        <p className="text-muted-foreground mt-1">Start a new scout or track your existing searches.</p>
       </div>
 
-      <form onSubmit={startHunt} className="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900/50">
+      <form onSubmit={startHunt} className="rounded-lg border border-border bg-card p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
           <div className="flex-1 space-y-2">
-            <label className="text-sm font-medium">Job Category</label>
+            <label className="text-sm font-medium text-foreground">Job Category</label>
             <input
               type="text"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               placeholder="e.g. Software Engineer"
-              className="w-full rounded-lg border border-zinc-200 bg-transparent px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black dark:border-zinc-800 dark:focus:ring-white"
+              className="w-full rounded-lg border border-input bg-input-background px-4 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               required
             />
           </div>
           <div className="flex-1 space-y-2">
-            <label className="text-sm font-medium">Region</label>
+            <label className="text-sm font-medium text-foreground">Region</label>
             <input
               type="text"
               value={region}
               onChange={(e) => setRegion(e.target.value)}
-              className="w-full rounded-lg border border-zinc-200 bg-transparent px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black dark:border-zinc-800 dark:focus:ring-white"
+              className="w-full rounded-lg border border-input bg-input-background px-4 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               required
             />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-black px-6 text-sm font-medium text-white transition-colors hover:bg-zinc-800 disabled:opacity-50 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
           >
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
             Start Scout
@@ -97,27 +97,27 @@ export default function HuntsPage() {
       </form>
 
       <div className="space-y-4">
-        <h2 className="text-lg font-semibold">Previous Hunts</h2>
+        <h2 className="text-lg font-semibold text-foreground">Previous Hunts</h2>
         {fetching ? (
           <div className="flex justify-center py-8">
-            <Loader2 className="h-8 w-8 animate-spin text-zinc-400" />
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
           </div>
         ) : hunts.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-zinc-200 py-12 text-center dark:border-zinc-800">
-            <p className="text-zinc-500">No hunts found. Start your first scout above!</p>
+          <div className="rounded-lg border border-dashed border-border py-12 text-center bg-card">
+            <p className="text-muted-foreground">No hunts found. Start your first scout above!</p>
           </div>
         ) : (
           <div className="grid gap-4">
             {hunts.map((hunt) => (
               <div
                 key={hunt.id}
-                className="flex items-center justify-between rounded-xl border border-zinc-200 bg-white p-6 transition-colors hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900/50 dark:hover:border-zinc-700"
+                className="flex items-center justify-between rounded-lg border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-lg"
               >
                 <div>
-                  <h3 className="font-bold">{hunt.category}</h3>
-                  <p className="text-sm text-zinc-500">{hunt.region} • {new Date(hunt.created_at).toLocaleDateString()}</p>
+                  <h3 className="font-bold text-foreground">{hunt.category}</h3>
+                  <p className="text-sm text-muted-foreground mt-1">{hunt.region} • {new Date(hunt.created_at).toLocaleDateString()}</p>
                 </div>
-                <button className="text-sm font-medium text-black underline-offset-4 hover:underline dark:text-white">
+                <button className="text-sm font-medium text-primary hover:underline underline-offset-4">
                   View Listings
                 </button>
               </div>
