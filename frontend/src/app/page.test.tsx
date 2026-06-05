@@ -58,7 +58,7 @@ describe('Dashboard Page', () => {
     expect(screen.getByText('Active Hunts')).toBeInTheDocument();
     expect(screen.getByText('5')).toBeInTheDocument();
     
-    expect(screen.getByText('Jobs Scraped')).toBeInTheDocument();
+    expect(screen.getByText('Jobs Found')).toBeInTheDocument();
     expect(screen.getByText('24')).toBeInTheDocument();
 
     // Check recent hunts are rendered
