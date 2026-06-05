@@ -74,16 +74,18 @@ export default function Home() {
 
   return (
     <div className="space-y-8 pb-12">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">Dashboard Overview</h1>
-        <p className="text-muted-foreground mt-1">Real-time status of your autonomous job search.</p>
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">Dashboard Overview</h1>
+          <p className="text-muted-foreground mt-1">Real-time status of your autonomous job search.</p>
+        </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {statCards.map((stat) => (
           <div
             key={stat.name}
-            className="rounded-lg border border-border bg-card p-6"
+            className="rounded-lg border border-border bg-card p-6 hover:shadow-lg transition-all hover:border-primary/50"
           >
             <div className="flex items-center gap-4">
               <div className="rounded-lg bg-secondary p-2">
@@ -99,7 +101,7 @@ export default function Home() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <div className="col-span-4 rounded-lg border border-border bg-card p-6">
+        <div className="col-span-4 rounded-lg border border-border bg-card p-6 hover:shadow-lg transition-all hover:border-primary/50">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-foreground">Recent Hunts</h2>
             <Link href="/hunts" className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors">View All</Link>
@@ -114,7 +116,7 @@ export default function Home() {
                     <p className="font-medium text-foreground">{hunt.category}</p>
                     <p className="text-sm text-muted-foreground">{hunt.region} • {new Date(hunt.created_at).toLocaleDateString()}</p>
                   </div>
-                  <Link href="/listings" className="text-sm font-medium text-primary hover:underline underline-offset-4 transition-colors">
+                  <Link href={`/hunts/${hunt.id}`} className="text-sm font-medium text-primary hover:underline underline-offset-4 transition-colors">
                     Details
                   </Link>
                 </div>
@@ -123,7 +125,7 @@ export default function Home() {
           </div>
         </div>
         
-        <div className="col-span-3 rounded-lg border border-border bg-card p-6">
+        <div className="col-span-3 rounded-lg border border-border bg-card p-6 hover:shadow-lg transition-all hover:border-primary/50">
           <h2 className="text-lg font-semibold text-foreground">Master CV Status</h2>
           <div className="mt-4">
             {masterCv ? (

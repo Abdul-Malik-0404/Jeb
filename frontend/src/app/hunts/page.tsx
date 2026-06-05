@@ -56,10 +56,12 @@ export default function HuntsPage() {
   };
 
   return (
-    <div className="max-w-4xl space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">Job Hunts</h1>
-        <p className="text-muted-foreground mt-1">Start a new scout or track your existing searches.</p>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">Job Hunts</h1>
+          <p className="text-muted-foreground mt-1">Start a new scout or track your existing searches.</p>
+        </div>
       </div>
 
       <form onSubmit={startHunt} className="rounded-lg border border-border bg-card p-6">
@@ -96,31 +98,46 @@ export default function HuntsPage() {
         </div>
       </form>
 
-      <div className="space-y-4">
-        <h2 className="text-lg font-semibold text-foreground">Previous Hunts</h2>
+      <div className="pt-4">
         {fetching ? (
-          <div className="flex justify-center py-8">
+          <div className="flex justify-center py-12">
             <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
           </div>
         ) : hunts.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-border py-12 text-center bg-card">
-            <p className="text-muted-foreground">No hunts found. Start your first scout above!</p>
+          <div className="text-center py-12">
+            <Search className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="mb-2 text-lg font-medium text-foreground">No hunts found</h3>
+            <p className="text-muted-foreground mb-4">Start your first scout above!</p>
           </div>
         ) : (
-          <div className="grid gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {hunts.map((hunt) => (
-              <div
+              <a
                 key={hunt.id}
-                className="flex items-center justify-between rounded-lg border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-lg"
+                href={`/hunts/${hunt.id}`}
+                className="block p-6 bg-card border border-border rounded-lg hover:shadow-lg transition-all hover:border-primary/50"
               >
-                <div>
-                  <h3 className="font-bold text-foreground">{hunt.category}</h3>
-                  <p className="text-sm text-muted-foreground mt-1">{hunt.region} • {new Date(hunt.created_at).toLocaleDateString()}</p>
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="mb-2 text-lg font-bold text-foreground">{hunt.category}</h3>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="inline-flex items-center gap-1 px-2 py-1 bg-secondary text-secondary-foreground rounded text-sm font-medium">
+                        {hunt.region}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-border space-y-2">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">Status</span>
+                      <span className="font-medium text-green-600">Active</span>
+                    </div>
+                    <div className="flex items-center gap-1 text-muted-foreground text-xs mt-4">
+                      Created {new Date(hunt.created_at).toLocaleDateString()}
+                    </div>
+                  </div>
                 </div>
-                <button className="text-sm font-medium text-primary hover:underline underline-offset-4">
-                  View Listings
-                </button>
-              </div>
+              </a>
             ))}
           </div>
         )}

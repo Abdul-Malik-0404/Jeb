@@ -67,17 +67,19 @@ export default function CVsPage() {
   };
 
   return (
-    <div className="max-w-4xl space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">Curriculum Vitae</h1>
-        <p className="text-muted-foreground mt-1">Manage your Master CV and tailored versions.</p>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">Curriculum Vitae</h1>
+          <p className="text-muted-foreground mt-1">Manage your Master CV and tailored versions.</p>
+        </div>
       </div>
 
       <div className="grid gap-8 md:grid-cols-2">
         {/* Upload Form */}
         <div className="space-y-4">
           <h2 className="text-lg font-semibold text-foreground">Upload New CV</h2>
-          <form onSubmit={uploadCV} className="rounded-lg border border-border bg-card p-6 space-y-4">
+          <form onSubmit={uploadCV} className="rounded-lg border border-border bg-card p-6 space-y-4 hover:shadow-lg transition-all hover:border-primary/50">
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">Title</label>
               <input

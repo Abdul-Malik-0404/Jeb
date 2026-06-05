@@ -22,17 +22,19 @@ const sections = [
 
 export default function SettingsPage() {
   return (
-    <div className="max-w-4xl space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">Settings</h1>
-        <p className="text-muted-foreground mt-1">Manage your account and application preferences.</p>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">Settings</h1>
+          <p className="text-muted-foreground mt-1">Manage your account and application preferences.</p>
+        </div>
       </div>
 
       <div className="grid gap-6">
         {sections.map((section) => (
           <div
             key={section.name}
-            className="flex items-start gap-6 rounded-lg border border-border bg-card p-6"
+            className="flex items-start gap-6 rounded-lg border border-border bg-card p-6 hover:shadow-lg transition-all hover:border-primary/50"
           >
             <div className="rounded-lg bg-secondary p-3">
               <section.icon className="h-6 w-6 text-foreground" />
