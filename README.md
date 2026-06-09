@@ -30,7 +30,7 @@ Jeb is a minimalist, agentic web dashboard designed to automate the job search a
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/Abdul-Malik-0404/Jeb.git
     cd Jeb
     ```
 
