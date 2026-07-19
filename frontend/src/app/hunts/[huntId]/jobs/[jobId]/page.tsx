@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { ArrowLeft, Building2, ExternalLink, FileText, Loader2, Play } from "lucide-react";
+import { useAuthContext } from "@asgardeo/auth-react";
 
 interface Listing {
   id: string;
@@ -27,11 +28,19 @@ export default function JobPostingDetail() {
   const [tailoring, setTailoring] = useState(false);
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://100.121.119.73:8000";
+  const { getAccessToken, state } = useAuthContext();
 
   useEffect(() => {
     async function fetchPosting() {
+      if (!state.isAuthenticated) {
+        setLoading(false);
+        return;
+      }
       try {
-        const res = await fetch(`${API_URL}/listings?hunt_id=${huntId}`);
+        const token = await getAccessToken();
+        const headers = { Authorization: `Bearer ${token}` };
+        
+        const res = await fetch(`${API_URL}/listings?hunt_id=${huntId}`, { headers });
         const data = await res.json();
         const found = data.find((l: Listing) => l.id === jobId);
         setPosting(found || null);
@@ -45,13 +54,17 @@ export default function JobPostingDetail() {
     if (huntId && jobId) {
       fetchPosting();
     }
-  }, [huntId, jobId, API_URL]);
+  }, [huntId, jobId, API_URL, state.isAuthenticated, getAccessToken]);
 
   const tailorCV = async () => {
-    if (!posting) return;
+    if (!posting || !state.isAuthenticated) return;
     setTailoring(true);
     try {
-      const res = await fetch(`${API_URL}/tailor/${posting.id}`, { method: "POST" });
+      const token = await getAccessToken();
+      const res = await fetch(`${API_URL}/tailor/${posting.id}`, { 
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` }
+      });
       const data = await res.json();
       alert(`Tailoring task started: ${data.task_id}`);
     } catch (err) {

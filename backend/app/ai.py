@@ -9,7 +9,7 @@ if api_key:
     genai.configure(api_key=api_key)
 
 class AIEngine:
-    def __init__(self, model_name: str = "gemini-3-flash-preview"):
+    def __init__(self, model_name: str = "gemini-1.5-pro"):
         self.model = genai.GenerativeModel(model_name)
 
     async def extract_skills(self, text: str) -> List[str]:
