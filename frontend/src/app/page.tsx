@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Briefcase, FileText, Search, TrendingUp, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { useAuthContext } from "@asgardeo/auth-react";
 
 interface Stats {
   hunts: number;
@@ -29,16 +30,24 @@ export default function Home() {
   const [recentHunts, setRecentHunts] = useState<Hunt[]>([]);
   const [masterCv, setMasterCv] = useState<CV | null>(null);
   const [loading, setLoading] = useState(true);
+  const { getAccessToken, state } = useAuthContext();
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://100.121.119.73:8000";
 
   useEffect(() => {
     async function fetchData() {
+      if (!state.isAuthenticated) {
+        setLoading(false);
+        return;
+      }
       try {
+        const token = await getAccessToken();
+        const headers = { Authorization: `Bearer ${token}` };
+
         const [statsRes, huntsRes, cvsRes] = await Promise.all([
-          fetch(`${API_URL}/stats`),
-          fetch(`${API_URL}/hunts`),
-          fetch(`${API_URL}/cvs`)
+          fetch(`${API_URL}/stats`, { headers }),
+          fetch(`${API_URL}/hunts`, { headers }),
+          fetch(`${API_URL}/cvs`, { headers })
         ]);
 
         const statsData = await statsRes.json();
@@ -55,12 +64,21 @@ export default function Home() {
       }
     }
     fetchData();
-  }, [API_URL]);
+  }, [API_URL, state.isAuthenticated, getAccessToken]);
 
   if (loading) {
     return (
       <div className="flex h-full items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  if (!state.isAuthenticated) {
+    return (
+      <div className="flex h-full flex-col items-center justify-center space-y-4 pt-12">
+        <h2 className="text-2xl font-bold text-foreground">Welcome to Jeb</h2>
+        <p className="text-muted-foreground text-center max-w-md">Please sign in with Asgardeo to manage your autonomous job search and resume tailoring.</p>
       </div>
     );
   }

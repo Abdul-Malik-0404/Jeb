@@ -8,6 +8,7 @@ class CV(Base):
     __tablename__ = "cvs"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(String, nullable=True) # Will be made non-nullable after data migration if needed
     title = Column(String, nullable=False)
     content_text = Column(Text, nullable=False)
     is_master = Column(Boolean, default=False)
@@ -18,6 +19,7 @@ class Hunt(Base):
     __tablename__ = "hunts"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(String, nullable=True) # Will be made non-nullable after data migration if needed
     category = Column(String, nullable=False)
     region = Column(String, default="Colombo, Sri Lanka")
     job_type = Column(String, nullable=True)

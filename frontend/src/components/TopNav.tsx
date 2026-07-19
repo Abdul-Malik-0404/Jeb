@@ -3,9 +3,17 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Briefcase, Settings, User } from "lucide-react";
+import { useAuthContext } from "@asgardeo/auth-react";
+import { useEffect, useState } from "react";
 
 export function TopNav() {
   const pathname = usePathname();
+  const { state, signIn, signOut } = useAuthContext();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const isActive = (path: string) => {
     if (path === '/' && pathname === '/') return true;
@@ -47,27 +55,49 @@ export function TopNav() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <Link
-              href="/cvs"
-              className={`p-2 rounded-md transition-colors ${
-                isActive('/cvs')
-                  ? 'bg-accent text-accent-foreground'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
-              }`}
-            >
-              <User className="w-5 h-5" />
-            </Link>
-            <Link
-              href="/settings"
-              className={`p-2 rounded-md transition-colors ${
-                isActive('/settings')
-                  ? 'bg-accent text-accent-foreground'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
-              }`}
-            >
-              <Settings className="w-5 h-5" />
-            </Link>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <Link
+                href="/cvs"
+                className={`p-2 rounded-md transition-colors ${
+                  isActive('/cvs')
+                    ? 'bg-accent text-accent-foreground'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
+                }`}
+              >
+                <User className="w-5 h-5" />
+              </Link>
+              <Link
+                href="/settings"
+                className={`p-2 rounded-md transition-colors ${
+                  isActive('/settings')
+                    ? 'bg-accent text-accent-foreground'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
+                }`}
+              >
+                <Settings className="w-5 h-5" />
+              </Link>
+            </div>
+            
+            {mounted && (
+              <div className="ml-4 pl-4 border-l border-border">
+                {state.isAuthenticated ? (
+                  <button 
+                    onClick={() => signOut()} 
+                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                ) : (
+                  <button 
+                    onClick={() => signIn()} 
+                    className="text-sm font-medium bg-primary text-primary-foreground px-4 py-2 rounded-md hover:opacity-90 transition-opacity"
+                  >
+                    Sign In
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

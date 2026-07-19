@@ -24,7 +24,7 @@ describe('Hunts Page', () => {
     render(<HuntsPage />);
 
     await waitFor(() => {
-      expect(screen.getByText('No hunts found')).toBeInTheDocument();
+      expect(screen.getByText('No active hunts')).toBeInTheDocument();
     });
   });
 
@@ -40,7 +40,7 @@ describe('Hunts Page', () => {
     await waitFor(() => {
       expect(screen.getByText('Software Engineer')).toBeInTheDocument();
       expect(screen.getByText('Colombo')).toBeInTheDocument();
-      expect(screen.getByText('Active')).toBeInTheDocument();
+      expect(screen.getByText('Active Postings')).toBeInTheDocument();
     });
   });
 
@@ -52,11 +52,19 @@ describe('Hunts Page', () => {
     render(<HuntsPage />);
     
     await waitFor(() => {
-      expect(screen.getByPlaceholderText('e.g. Software Engineer')).toBeInTheDocument();
+      expect(screen.getByText('No active hunts')).toBeInTheDocument();
+    });
+
+    // Open Modal
+    const newHuntBtn = screen.getByRole('button', { name: /Create Job Hunt/i });
+    fireEvent.click(newHuntBtn);
+
+    await waitFor(() => {
+      expect(screen.getByPlaceholderText('e.g. Frontend Developer')).toBeInTheDocument();
     });
 
     // Fill form
-    const categoryInput = screen.getByPlaceholderText('e.g. Software Engineer');
+    const categoryInput = screen.getByPlaceholderText('e.g. Frontend Developer');
     const regionInput = screen.getAllByRole('textbox')[1]; // Region input
     
     fireEvent.change(categoryInput, { target: { value: 'Data Scientist' } });
@@ -74,7 +82,7 @@ describe('Hunts Page', () => {
       ]
     });
 
-    const submitBtn = screen.getByRole('button', { name: /start scout/i });
+    const submitBtn = screen.getByRole('button', { name: /Create Hunt/i });
     fireEvent.click(submitBtn);
 
     await waitFor(() => {

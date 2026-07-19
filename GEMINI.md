@@ -2,13 +2,13 @@
 
 **Jeb (Autonomous Job Scout & Resume Tailor)**
 
-This project aims to build a minimalist web dashboard that scrapes job listings (specifically targeting Colombo, Sri Lanka), analyzes them against a Master CV (supporting both text paste and PDF upload), and generates on-demand, tailored, ATS-friendly PDFs using AI.
+This project aims to build a free, autonomous alternative to platforms like Enhancv. It features a minimalist web dashboard that scrapes job listings (specifically targeting Colombo, Sri Lanka), analyzes them against a Master CV (supporting both text paste and PDF upload), and generates on-demand, tailored, ATS-friendly PDFs using a custom-trained AI model.
 
 **Core Stack:**
 *   **Backend:** Python, FastAPI, PostgreSQL (SQLAlchemy), Celery + Redis
 *   **Frontend:** Next.js (App Router), Tailwind, Shadcn/UI (Minimalist/Dark Mode)
 *   **PDF Engine:** WeasyPrint (HTML-to-PDF)
-*   **AI:** Gemini 1.5 Pro (for skill extraction and resume tailoring)
+*   **AI:** Custom open-source model trained in Google Colab using Hugging Face datasets (for skill extraction and resume tailoring)
 *   **Scraping:** Playwright (for stealth scraping of job boards)
 
 ## Building and Running
