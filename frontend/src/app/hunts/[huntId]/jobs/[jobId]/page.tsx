@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { ArrowLeft, Building2, ExternalLink, FileText, Loader2, Play } from "lucide-react";
-import { useAuthContext } from "@asgardeo/auth-react";
+import { useCustomAuth as useAuthContext } from "@/contexts/AuthContext";
 
 interface Listing {
   id: string;

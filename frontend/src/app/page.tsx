@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Briefcase, FileText, Search, TrendingUp, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { useAuthContext } from "@asgardeo/auth-react";
+import { useCustomAuth as useAuthContext } from "@/contexts/AuthContext";
 
 interface Stats {
   hunts: number;

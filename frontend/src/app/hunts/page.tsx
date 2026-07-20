@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Search, Loader2, Plus, X, Briefcase, MapPin } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { useAuthContext } from "@asgardeo/auth-react";
+import { useCustomAuth as useAuthContext } from "@/contexts/AuthContext";
 
 interface Hunt {
   id: string;
