@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Upload, Loader2, Phone, Mail, MapPin, Globe, Link as LinkIcon, GripVertical, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useAuthContext } from "@asgardeo/auth-react";
+import { useCustomAuth as useAuthContext } from "@/contexts/AuthContext";
 
 interface CV {
   id: string;

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { ArrowLeft, MapPin, ExternalLink, Loader2, TrendingUp, Building2, Briefcase, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useAuthContext } from "@asgardeo/auth-react";
+import { useCustomAuth as useAuthContext } from "@/contexts/AuthContext";
 
 interface Listing {
   id: string;
